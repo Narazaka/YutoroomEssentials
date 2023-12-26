@@ -139,6 +139,19 @@ Drop時に子の位置や向きの補正等は行わないので「トレーに�
 - このオブジェクトをコライダー判定などでactive/inactiveにするとAudioReverbFilterが連動します。
   - AudioSourceのサンプルが`Samples/AudioSource.prefab`にあるのでシーンに配置し参照して下さい。
 
+### TriggerInOutSound
+
+コライダーにプレイヤーやPickupオブジェクトが出たり入ったりする時に音を出します
+
+#### セットアップ
+
+- 水中コライダーに`TriggerInOutSound`コンポーネントを付けます。
+- AudioSourcesに音を再生するAudioSourceを何個か設定します。
+  - 発声上限に引っかからないようオブジェクトプール的に使いまわします。
+- 各種の音を設定します。
+
+![inspector](docs~/TriggerInOutSound.png)
+
 ## 更新履歴
 
 - 1.0.0
