@@ -10,40 +10,40 @@ namespace net.narazaka.vrchat.yutoroom_essentials
         [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
         public class FloatingObject : UdonSharpBehaviour
         {
-            [SerializeField]
+            [SerializeField, Header("水中領域")]
             Collider[] Colliders;
-            [SerializeField, Tooltip("required for Top")]
+            [SerializeField, Header("水面直上の大気領域（FloatingObjectTopを指定する場合必要）"), Tooltip("required for FloatingObjectTop")]
             Collider[] AirColliders;
-            [SerializeField]
+            [SerializeField, Header("水面高さ")]
             Transform[] ColliderTops;
-            [SerializeField]
+            [SerializeField, Header("対象RigidBody")]
             Rigidbody Target;
-            [SerializeField]
+            [SerializeField, Header("上面位置")]
             Transform TopPosition;
-            [SerializeField]
+            [SerializeField, Header("下面位置")]
             Transform BottomPosition;
-            [SerializeField]
+            [SerializeField, Header("重心（ここに力がかかる）")]
             Transform CenterOfMass;
-            [SerializeField]
+            [SerializeField, Header("浮遊平衡位置")]
             Transform StableFloatPosition;
-            [SerializeField]
+            [SerializeField, Header("逆向き浮遊（FloatingObjectTop構成では指定しない）")]
             bool CanInvert;
-            [SerializeField, Tooltip("required for Top / CanInvert")]
+            [SerializeField, Header("逆向きでの重心（ここに力がかかる）"), Tooltip("required for FloatingObjectTop / CanInvert")]
             Transform CenterOfMassInvert;
-            [SerializeField, Tooltip("required for Top / CanInvert")]
+            [SerializeField, Header("逆向きでの浮遊平衡位置"), Tooltip("required for FloatingObjectTop / CanInvert")]
             Transform StableFloatPositionInvert;
-            [SerializeField, Tooltip("required for Top / CanInvert")]
+            [SerializeField, Header("上面方向（Yが上に向くように配置する 優勢面判定用）"), Tooltip("required for FloatingObjectTop / CanInvert")]
             Transform UpperDirection;
-            [SerializeField, Tooltip("required for Top / CanInvert")]
+            [SerializeField, Header("逆向きが優勢になる回転角度(度)"), Tooltip("required for FloatingObjectTop / CanInvert")]
             float BottomUpAngle;
 
-            [SerializeField]
+            [SerializeField, Header("沈み割合に関係しない浮力割合")]
             float FloatingForceOffsetFactor;
-            [SerializeField]
+            [SerializeField, Header("浮力係数（重力加速度比）")]
             float FloatingForceFactor;
-            [SerializeField]
+            [SerializeField, Header("水中回転減衰係数")]
             float AngularDampeningFactor;
-            [SerializeField]
+            [SerializeField, Header("水中での摩擦係数(drag)")]
             float InFluidDrag;
 
             bool IsInFluid;
