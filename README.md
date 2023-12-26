@@ -129,6 +129,16 @@ Drop時に子の位置や向きの補正等は行わないので「トレーに�
 
 ![hierarchy](docs~/InWater_hierarchy.png)
 
+### ToggleReverbByActive
+
+オブジェクトのON/OFFに連動してAudioReverbFilterをON/OFFします
+
+#### セットアップ
+
+- オブジェクトに`ToggleReverbByActive`を付けて、AudioReverbFilterを指定します。
+- このオブジェクトをコライダー判定などでactive/inactiveにするとAudioReverbFilterが連動します。
+  - AudioSourceのサンプルが`Samples/AudioSource.prefab`にあるのでシーンに配置し参照して下さい。
+
 ## 更新履歴
 
 - 1.0.0
