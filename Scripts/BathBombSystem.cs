@@ -1,7 +1,6 @@
 ﻿using System;
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 using VRC.SDKBase;
 
 namespace net.narazaka.vrchat.yutoroom_essentials
@@ -16,7 +15,7 @@ namespace net.narazaka.vrchat.yutoroom_essentials
         [SerializeField]
         Renderer Renderer;
         [SerializeField]
-        PostProcessVolume[] PostProcessVolumes;
+        Transform[] CorrespondingObjects;
 
         [UdonSynced, FieldChangeCallback(nameof(MaterialIndex))]
         public sbyte _MaterialIndex = -1;
@@ -29,10 +28,10 @@ namespace net.narazaka.vrchat.yutoroom_essentials
                 if (_MaterialIndex != -1)
                 {
                     Renderer.material = Materials[(int)_MaterialIndex];
-                    var len = PostProcessVolumes.Length;
+                    var len = CorrespondingObjects.Length;
                     for (var i = 0; i < len; ++i)
                     {
-                        PostProcessVolumes[i].gameObject.SetActive(i == (int)_MaterialIndex);
+                        CorrespondingObjects[i].gameObject.SetActive(i == (int)_MaterialIndex);
                     }
                 }
             }
