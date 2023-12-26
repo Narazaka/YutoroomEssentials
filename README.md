@@ -110,6 +110,25 @@ Drop時に子の位置や向きの補正等は行わないので「トレーに�
 
 ![inspector](docs~/FollowPickup.png)
 
+### InWater
+
+水中に潜る時の効果
+
+潜る時の音や視界効果を設定するのに適しています。
+
+#### セットアップ
+
+- `InWater` prefabを配置し、水中コライダーの位置を合わせます。
+- 音系とAudioLowPassFilterを指定します。
+  - [VRChatワールドではAudioListenerをシーン上に置いておくとプレイヤーのAudioListenerを上書きします。](https://vrcworld.wiki.fc2.com/wiki/Audio)これを利用してAudioLowPassFilterを指定できます。
+    - AudioSourceのサンプルが`Samples/AudioSource.prefab`にあるのでシーンに配置し参照して下さい。
+  - YUTOROOMでの音は以下の通りです
+    - 水中音（StaySound）: [水中泳ぐ・潜水 by On-Jin ～音人～](https://on-jin.com/sound/listshow.php?pagename=spo&title=%E6%B0%B4%E4%B8%AD%E6%B3%B3%E3%81%90%E3%83%BB%E6%BD%9C%E6%B0%B4&janl=%E9%81%8B%E5%8B%95%E3%83%BB%E9%81%8A%E6%88%AF%E7%B3%BB%E9%9F%B3&bunr=%E6%B3%B3%E3%81%90&kate=%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84)
+    - 出入りの音: [【効果音】風呂/オコジョ彗星](https://www.dlsite.com/home/work/=/product_id/RJ293180.html) をカット編集したもの
+- 水中のPostProcessing Volumeを制御する場合、入れ子構造にして親を操作すると`BathBombSystem`と連携できます。
+
+![hierarchy](docs~/InWater_hierarchy.png)
+
 ## 更新履歴
 
 - 1.0.0
