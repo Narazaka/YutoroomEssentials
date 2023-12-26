@@ -1,0 +1,16 @@
+{
+  "name": "net.narazaka.vrchat.yutoroom-essentials",
+  "version": "1.0.0",
+  "displayName": "YUTOROOM Essentials",
+  "description": "日本の風呂ワールドに不可欠なギミック群",
+  "author": {
+    "name": "Narazaka",
+    "url": "https://github.com/Narazaka"
+  },
+  "license": "Zlib",
+  "type": "tool",
+  "url" : "https://github.com/Narazaka/YutoroomEssentials.git",
+  "vpmDependencies": {
+    "com.vrchat.worlds": ">=3.0.9"
+  }
+}

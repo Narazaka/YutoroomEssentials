@@ -1,0 +1,20 @@
+{
+    "name": "YutoroomEssentials",
+    "references": [
+        "VRC.SDKBase",
+        "VRC.SDK3",
+        "VRC.Udon",
+        "VRC.Udon.Serialization.OdinSerializer",
+        "UdonSharp.Runtime",
+        "Unity.Postprocessing.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
