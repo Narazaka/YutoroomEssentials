@@ -1,15 +1,14 @@
 ﻿using UdonSharp;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 using VRC.SDKBase;
 
 namespace net.narazaka.vrchat.yutoroom_essentials
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class InColliderPPS : UdonSharpBehaviour
+    public class InWater : UdonSharpBehaviour
     {
         [SerializeField]
-        PostProcessVolume[] PostProcessVolumes;
+        Transform[] Objects;
         [SerializeField]
         AudioSource StaySound;
         [SerializeField]
@@ -31,7 +30,7 @@ namespace net.narazaka.vrchat.yutoroom_essentials
         {
             if (other == Head)
             {
-                SetWeights(true);
+                SetActives(true);
                 StaySound.gameObject.SetActive(true);
                 InSound.Play();
                 AudioLowPassFilter.enabled = true;
@@ -42,18 +41,18 @@ namespace net.narazaka.vrchat.yutoroom_essentials
         {
             if (other == Head)
             {
-                SetWeights(false);
+                SetActives(false);
                 StaySound.gameObject.SetActive(false);
                 OutSound.Play();
                 AudioLowPassFilter.enabled = false;
             }
         }
 
-        void SetWeights(bool active)
+        void SetActives(bool active)
         {
-            foreach (var vol in PostProcessVolumes)
+            foreach (var vol in Objects)
             {
-                vol.weight = active ? 1 : 0;
+                vol.gameObject.SetActive(active);
             }
         }
     }
