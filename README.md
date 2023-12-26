@@ -21,9 +21,11 @@
 - VRCPickup+ObjectSyncで投げられる入浴剤コライダーと、同数のマテリアル、アクティブオブジェクトを指定します。
 - アクティブオブジェクトには水面下PostProcessing Volumeなどを指定します。
 
-## DrinkSound
+### DrinkSound
 
-### セットアップ
+ドリンクを飲む音
+
+#### セットアップ
 
 1. VRCPickupのついた飲み物オブジェクトに`DrinkSoundPickup`を付けます。
 2. その飲み物オブジェクトの子に`DrinkSound` prefabを配置します。
@@ -31,12 +33,12 @@
 4. `DrinkSound`のAudioSourceに飲む音を設定します。（飲む音を設定したprefab variantを作ると便利だと思います。）
   - YUTOROOMの飲む音はこちらを使用しました。  [ごくごく飲む（ニコニ・コモンズ）](https://commons.nicovideo.jp/works/nc44239)
 
-### 既知の問題
+#### 既知の問題
 
 - 同期されて聞こえるようにしようかと思ったがやめた。
   - その名残でDrinkSoundPickupがManual Syncになっているため、飲み物オブジェクトには[ManualObjectSync](https://github.com/mimyquality/FukuroUdon/wiki/Manual-ObjectSync)を付けることを推奨します。
 
-## FloatingObject
+### FloatingObject
 
 風呂の水面に浮くオブジェクト
 
@@ -47,8 +49,6 @@
 などを自然に浮かせる事が出来ます。
 
 上手い具合に数値調整などをする必要があり設定はそれなりに煩雑です。
-
-### セットアップ
 
 #### (共通) 水の領域コライダーを設定する
 
