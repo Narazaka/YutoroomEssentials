@@ -12,6 +12,15 @@
 
 ## 使い方
 
+### BathBombSystem
+
+入浴剤によるお湯の色変化
+
+![inspector](docs/BathBombSystem.png)
+
+- VRCPickup+ObjectSyncで投げられる入浴剤コライダーと、同数のマテリアル、アクティブオブジェクトを指定します。
+- アクティブオブジェクトには水面下PostProcessing Volumeなどを指定します。
+
 ## 更新履歴
 
 - 1.0.0

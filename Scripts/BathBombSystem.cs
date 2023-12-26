@@ -8,15 +8,20 @@ namespace net.narazaka.vrchat.yutoroom_essentials
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class BathBombSystem : UdonSharpBehaviour
     {
+        [Header("投げ入れたい入浴剤コライダー")]
         [SerializeField]
         Collider[] BathBombs;
+        [Header("お湯表面のマテリアル")]
         [SerializeField]
         Material[] Materials;
+        [Header("お湯表面")]
         [SerializeField]
         Renderer Renderer;
+        [Header("各入浴剤有効時にアクティブにするオブジェクト（水面下PostProcessing等）")]
         [SerializeField]
         Transform[] CorrespondingObjects;
 
+        [Header("入浴剤有効index（変化時のみ反映）")]
         [UdonSynced, FieldChangeCallback(nameof(MaterialIndex))]
         public sbyte _MaterialIndex = -1;
         sbyte MaterialIndex
