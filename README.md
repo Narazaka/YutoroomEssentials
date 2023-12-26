@@ -152,6 +152,14 @@ Drop時に子の位置や向きの補正等は行わないので「トレーに�
 
 ![inspector](docs~/TriggerInOutSound.png)
 
+## Tips
+
+YUTOROOMで利用している他のシステムとしては以下などがあります。
+
+- お風呂水面の波紋: [InteractiveWater (VRC向け触れる水)](https://booth.pm/ja/items/1502201)
+- お風呂の水しぶき: [ばしゃばしゃ水遊びシステム【VRChatワールド用】](https://booth.pm/ja/items/3929644)
+  - 足でも反応する＆音が出るように改変しています
+
 ## 更新履歴
 
 - 1.0.0
