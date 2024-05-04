@@ -92,6 +92,21 @@ VRCPickupのついた風呂桶オブジェクトの下に以下を設定しま�
 
 ![inspector](docs~/FloatingObject_yuzu.png)
 
+#### ビーチボール（等方的なオブジェクト）
+
+サンプルは`Samples/FloatingObject/ビーチボールsample.prefab`にあります。
+
+- オブジェクトの形状に沿ったコライダーを作り、`FloatingObject`コンポーネントを追加します。
+- サンプルを参考に各種設定を行ってください。
+  - Isotropic=true
+  - TopPosition/CenterOfMass/StableFloatPositionについてローカルY座標を中心からの径として設定します
+
+![inspector](docs~/FloatingObject_ball.png)
+
+#### Tips
+
+上下位置が安定した後左右に振動する場合はAngularDampeningFactorの桁を小さくしてみて下さい。
+
 ### FollowPickup
 
 親に追従するPickupオブジェクト
