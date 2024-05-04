@@ -26,6 +26,8 @@ namespace net.narazaka.vrchat.yutoroom_essentials
             Transform CenterOfMass;
             [SerializeField, Header("浮遊平衡位置")]
             Transform StableFloatPosition;
+            [SerializeField, Header("等方的（ビーチボールのようなもの 上面位置/重心/浮遊平衡位置をy方向に指定する）")]
+            bool Isotropic;
             [SerializeField, Header("逆向き浮遊（FloatingObjectTop構成では指定しない）")]
             bool CanInvert;
             [SerializeField, Header("逆向きでの重心（ここに力がかかる）"), Tooltip("required for FloatingObjectTop / CanInvert")]
@@ -144,17 +146,17 @@ namespace net.narazaka.vrchat.yutoroom_essentials
 
                 if (IsInFluid)
                 {
-                    inverted = (CanInvert || (IsTopCompletelyInFluid && !NoAir)) && IsInverted(); // CanInvertでなくかつしずんで空気が無い場合は計算する必要がない
+                    inverted = (CanInvert || (IsTopCompletelyInFluid && !NoAir)) && !Isotropic && IsInverted(); // CanInvertでなくかつしずんで空気が無い場合は計算する必要がない
 
-                    bottomY = (inverted ? TopPosition : BottomPosition).position.y;
-                    topY = (inverted ? BottomPosition : TopPosition).position.y;
+                    bottomY = Isotropic ? CenterOfMass.position.y - TopPosition.localPosition.y : (inverted ? TopPosition : BottomPosition).position.y;
+                    topY = Isotropic ? CenterOfMass.position.y + TopPosition.localPosition.y : (inverted ? BottomPosition : TopPosition).position.y;
                     var topYIsUpper = topY > bottomY;
                     lowerY = topYIsUpper ? bottomY : topY;
 
                     differenceFromLower = FluidTopY - lowerY; // invert対応にかかわらず下の方の値を常に使う
                     if (differenceFromLower > 0)
                     {
-                        stableY = (inverted ? StableFloatPositionInvert : StableFloatPosition).position.y;
+                        stableY = Isotropic ? CenterOfMass.position.y + StableFloatPosition.localPosition.y : (inverted ? StableFloatPositionInvert : StableFloatPosition).position.y;
                         upperY = topYIsUpper ? topY : bottomY;
 
                         differenceFromStable = FluidTopY - stableY;
