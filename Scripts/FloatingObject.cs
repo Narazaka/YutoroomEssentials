@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UdonSharp;
 using UnityEngine;
 
@@ -45,8 +45,10 @@ namespace net.narazaka.vrchat.yutoroom_essentials
             float FloatingForceFactor;
             [SerializeField, Header("水中回転減衰係数")]
             float AngularDampeningFactor;
-            [SerializeField, Header("水中での摩擦係数(drag)")]
-            float InFluidDrag;
+            [SerializeField, Header("水中での垂直摩擦係数(vertical drag)")]
+            float InFluidVerticalDrag = 15;
+            [SerializeField, Header("水中での水平摩擦係数(horizontal drag)")]
+            float InFluidHorizontalDrag = 2;
 
             bool IsInFluid;
             // only true if Top
@@ -78,8 +80,8 @@ namespace net.narazaka.vrchat.yutoroom_essentials
             float lowerLen;
             /* public */
             float rate;
-
-
+                        
+            
             void OnEnable()
             {
                 var collider = GetComponent<Collider>();
@@ -135,19 +137,22 @@ namespace net.narazaka.vrchat.yutoroom_essentials
 
             void FixedUpdate()
             {
-                if (IsInFluid && Target.drag == 0)
-                {
-                    Target.drag = InFluidDrag;
-                }
-                else if (!IsInFluid && Target.drag != 0)
-                {
-                    Target.drag = 0;
-                }
-
                 if (IsInFluid)
                 {
-                    inverted = (CanInvert || (IsTopCompletelyInFluid && !NoAir)) && !Isotropic && IsInverted(); // CanInvertでなくかつしずんで空気が無い場合は計算する必要がない
+                    Vector3 velo = Target.velocity;
 
+                    // 垂直方向の減速
+                    float verticalVelo = velo.y;
+                    float verticalDamp = -verticalVelo  * InFluidVerticalDrag;
+                    Target.AddForce(Vector3.up * verticalDamp, ForceMode.Acceleration);
+
+                    // 水平方向の減速
+                    Vector3 horizontalVelo = new Vector3(velo.x, 0f, velo.z);
+                    Vector3 horizontalDamp = -horizontalVelo * InFluidHorizontalDrag;
+                    Target.AddForce(horizontalDamp, ForceMode.Acceleration);
+
+                    inverted = (CanInvert || (IsTopCompletelyInFluid && !NoAir)) && !Isotropic && IsInverted(); // CanInvertでなくかつしずんで空気が無い場合は計算する必要がない
+                    
                     bottomY = Isotropic ? CenterOfMass.position.y - TopPosition.localPosition.y : (inverted ? TopPosition : BottomPosition).position.y;
                     topY = Isotropic ? CenterOfMass.position.y + TopPosition.localPosition.y : (inverted ? BottomPosition : TopPosition).position.y;
                     var topYIsUpper = topY > bottomY;
@@ -183,7 +188,7 @@ namespace net.narazaka.vrchat.yutoroom_essentials
                     }
                 }
             }
-
+            
             bool IsInverted()
             {
                 Quaternion.FromToRotation(Vector3.up, UpperDirection.up).ToAngleAxis(out var angle, out var axis);
