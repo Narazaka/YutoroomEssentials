@@ -1,4 +1,4 @@
-﻿using UdonSharp;
+using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
 
@@ -28,6 +28,16 @@ namespace net.narazaka.vrchat.yutoroom_essentials
 
         void OnTriggerEnter(Collider other)
         {
+            EnterWater(other);
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            ExitWater(other);
+        }
+
+        public void EnterWater(Collider other)
+        {
             if (other == Head)
             {
                 SetActives(true);
@@ -37,7 +47,7 @@ namespace net.narazaka.vrchat.yutoroom_essentials
             }
         }
 
-        void OnTriggerExit(Collider other)
+        public void ExitWater(Collider other)
         {
             if (other == Head)
             {
@@ -47,7 +57,7 @@ namespace net.narazaka.vrchat.yutoroom_essentials
                 AudioLowPassFilter.enabled = false;
             }
         }
-
+        
         void SetActives(bool active)
         {
             foreach (var vol in Objects)

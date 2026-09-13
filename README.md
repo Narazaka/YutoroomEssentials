@@ -141,8 +141,13 @@ Drop時に子の位置や向きの補正等は行わないので「トレーに�
     - 水中音（StaySound）: [水中泳ぐ・潜水 by On-Jin ～音人～](https://on-jin.com/sound/listshow.php?pagename=spo&title=%E6%B0%B4%E4%B8%AD%E6%B3%B3%E3%81%90%E3%83%BB%E6%BD%9C%E6%B0%B4&janl=%E9%81%8B%E5%8B%95%E3%83%BB%E9%81%8A%E6%88%AF%E7%B3%BB%E9%9F%B3&bunr=%E6%B3%B3%E3%81%90&kate=%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84)
     - 出入りの音: [【効果音】風呂/オコジョ彗星](https://www.dlsite.com/home/work/=/product_id/RJ293180.html) をカット編集したもの
 - 水中のPostProcessing Volumeを制御する場合、入れ子構造にして親を操作すると`BathBombSystem`と連携できます。
+- 複数の水中コライダーを使う場合、`InWaterCollider`コンポーネントを追加されたコライダーを使ってください
+  - 円柱型サンプルは`Samples/InWater円柱コライダー.prehab`にあります
+  - `InWaterCollider`コンポーネント付きのコライダーをシーンに配置して、`Inwater`コンポーネント付きのオブジェクトを指定してください
 
 ![hierarchy](docs~/InWater_hierarchy.png)
+
+![inspector](docs~/InWaterCollider.png)
 
 ### ToggleReverbByActive
 
@@ -174,6 +179,8 @@ YUTOROOMで利用している他のシステムとしては以下などがあり
 （というかむしろ、これらの高い没入感を醸成する重要な要素技術が既にあるにも関わらず風呂ワールドで活用されていないことに歯がゆさを覚えてYUTOROOMが作られたという面が大きいです。これらに加えて付随する風呂体験を作り込んでさらに質を高めようとした周辺技術が本ライブラリの内容なので、とりあえず風呂ワールドを作ろうという場合にはまずは下記の適用を先に行う方が効果的だと思います。）
 
 - お風呂水面の波紋: [InteractiveWater (VRC向け触れる水)](https://booth.pm/ja/items/1502201)
+  - 円形の水面なら`Samples/Circle_Cylinder.fbx`の`Circle`メッシュを`SimulatedDrawBoard`と`DrawBoard_Back`のMesh Filterに設定し
+    `SimulatedDrawBoard`のXとYスケー ルを`InterCamera`のCameraコンポーネントのSizeの数字の二倍にしてください
 - お風呂の水しぶき: [ばしゃばしゃ水遊びシステム【VRChatワールド用】](https://booth.pm/ja/items/3929644)
   - 足でも反応する＆音が出るように改変しています
 
