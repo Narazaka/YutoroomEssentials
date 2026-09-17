@@ -49,6 +49,8 @@ namespace net.narazaka.vrchat.yutoroom_essentials
             float InFluidVerticalDrag = 15;
             [SerializeField, Header("水中での水平摩擦係数(horizontal drag)")]
             float InFluidHorizontalDrag = 2;
+            [SerializeField, Header("水中での摩擦係数(drag)（水平垂直と排他:0なら水平垂直を使用）")]
+            float InFluidDrag;
 
             bool IsInFluid;
             // only true if Top
@@ -137,19 +139,34 @@ namespace net.narazaka.vrchat.yutoroom_essentials
 
             void FixedUpdate()
             {
+                var byDrag = InFluidDrag > 0;
+                if (byDrag)
+                {
+                    if (IsInFluid && Target.drag == 0)
+                    {
+                        Target.drag = InFluidDrag;
+                    }
+                    else if (!IsInFluid && Target.drag != 0)
+                    {
+                        Target.drag = 0;
+                    }
+                }
                 if (IsInFluid)
                 {
-                    Vector3 velo = Target.velocity;
+                    if (!byDrag)
+                    {
+                        Vector3 velo = Target.velocity;
 
-                    // 垂直方向の減速
-                    float verticalVelo = velo.y;
-                    float verticalDamp = -verticalVelo  * InFluidVerticalDrag;
-                    Target.AddForce(Vector3.up * verticalDamp, ForceMode.Acceleration);
+                        // 垂直方向の減速
+                        float verticalVelo = velo.y;
+                        float verticalDamp = -verticalVelo * InFluidVerticalDrag;
+                        Target.AddForce(Vector3.up * verticalDamp, ForceMode.Acceleration);
 
-                    // 水平方向の減速
-                    Vector3 horizontalVelo = new Vector3(velo.x, 0f, velo.z);
-                    Vector3 horizontalDamp = -horizontalVelo * InFluidHorizontalDrag;
-                    Target.AddForce(horizontalDamp, ForceMode.Acceleration);
+                        // 水平方向の減速
+                        Vector3 horizontalVelo = new Vector3(velo.x, 0f, velo.z);
+                        Vector3 horizontalDamp = -horizontalVelo * InFluidHorizontalDrag;
+                        Target.AddForce(horizontalDamp, ForceMode.Acceleration);
+                    }
 
                     inverted = (CanInvert || (IsTopCompletelyInFluid && !NoAir)) && !Isotropic && IsInverted(); // CanInvertでなくかつしずんで空気が無い場合は計算する必要がない
 
